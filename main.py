@@ -2,6 +2,7 @@ from utils import log
 from client_server import client
 from client_server import server
 
+import time
 import sys
 import logging
 
@@ -15,14 +16,19 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Como rodar: python main.py --client ou python main.py --server")
         print(
-            "Nota: Caso não tenha um servidor rodando, é preciso rodar primeiro o serivdor!"
+            "Nota: Caso não tenha um servidor rodando, é preciso rodar primeiro o cliente!"
         )
         sys.exit(1)
 
     if sys.argv[1] == "--client":
-        client = client.Client(localhost, port)
-        client.start_communication_with_server()
-        client.close_communication()
+        while True:
+            try:
+                client = client.Client(localhost, port)
+                client.start_communication_with_server()
+                client.close_communication()
+            except ConnectionRefusedError:
+                print("Servidor não está respondendo, tentando novamente em 5 segundos...")
+                time.sleep(5)
 
     elif sys.argv[1] == "--server":
         server = server.Server(localhost, port)

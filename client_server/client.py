@@ -32,8 +32,6 @@ class Client(object):
         self.secure_client_socket.send(msg.encode())
 
     def start_communication_with_server(self):
-
-
         sair = ""
         while True and sair != "Y":
             self.logger.info("Lendo a entrada do usuário!")
@@ -44,7 +42,7 @@ class Client(object):
             resposta = self.secure_client_socket.recv(1024).decode()
             self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
-            sair = input("Deseja para a comunicação? Y/n")
+            sair = input("Deseja parar a comunicação? Y/n: ")
 
     def close_communication(self):
         self.logger.info("Enviando mensagem para terminar a comunicação!")
