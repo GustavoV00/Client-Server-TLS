@@ -1,5 +1,6 @@
 from utils import log
 import socket
+import ssl
 
 
 class Server(object):
@@ -12,32 +13,42 @@ class Server(object):
         self.host = host
         self.port = port
         self.socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
 
     def start_server(self):
         self.logger.info("Iniciando servidor!")
-        self.socket_servidor.bind((self.host, self.port))
+        self.socket_servidor.bind(('localhost', self.port))
         self.socket_servidor.listen(1)
         self.logger.info(f"Servidor iniciado: {self.host}:{self.port}")
 
-    def send_message_to_client(self, msg):
-        self.socket_servidor.send(msg)
 
     def start_communication_with_client(self):
+        
+        client, address = self.socket_servidor.accept()
+
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        # ssl_context.verify_mode = ssl.CERT_REQUIRED
+        ssl_context.load_verify_locations("cert_client/certificado.crt")
+        ssl_context.load_cert_chain(certfile="cert_server/certificado.crt", keyfile="cert_server/chave.key")
+        
+
+        # SSL handshake
+        secure_client_socket = ssl_context.wrap_socket(client, server_side=True)
+        self.logger.info("Conexão estabelecida com sucesso!")
+        
         while True:
-            client, address = self.socket_servidor.accept()
-            self.logger.info("Conexão estabelecida com sucesso!")
+            
             self.logger.info("Lendo mensagem do cliente")
-            msg = client.recv(1024).decode("utf-8")
+            msg = secure_client_socket.recv(1024).decode()
             self.logger.info(f"Mensagem recebida de {address}:{msg}")
 
-            self.logger.info("Respondendo o servidor!")
+            self.logger.info("Respondendo o cliente!")
             res = "Ok"
-            self.send_message_to_client(res)
+            secure_client_socket.send(res.encode())
 
             if msg == "terminar":
-                self.logger.info(
-                    f"Finalizando comunicação com o cliente: {self.host}:{self.port}"
-                )
+                self.logger.info(f"Finalizando comunicação com o cliente: {self.host}:{self.port}")
+                secure_client_socket.close()
                 break
 
     def close_communication(self):

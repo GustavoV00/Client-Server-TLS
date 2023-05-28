@@ -11,6 +11,14 @@ port = 5000
 
 if __name__ == "__main__":
     log.Logging.setup(True, None, logging.INFO)
+
+    if len(sys.argv) < 2:
+        print("Como rodar: python main.py --client ou python main.py --server")
+        print(
+            "Nota: Caso não tenha um servidor rodando, é preciso rodar primeiro o serivdor!"
+        )
+        sys.exit(1)
+
     if sys.argv[1] == "--client":
         client = client.Client(localhost, port)
         client.start_communication_with_server()
@@ -21,8 +29,3 @@ if __name__ == "__main__":
         server.start_server()
         server.start_communication_with_client()
         server.close_communication()
-    else:
-        print("Como rodar: python main.py --client ou python main.py --server")
-        print(
-            "Nota: Caso não tenha um servidor rodando, é preciso rodar primeiro o serivdor!"
-        )

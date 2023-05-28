@@ -1,5 +1,6 @@
 from utils import log
 import socket
+import ssl
 
 
 class Client(object):
@@ -8,7 +9,16 @@ class Client(object):
         self.host = host
         self.porta = port
         self.socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket_cliente.connect((self.host, self.porta))
+        self.socket_cliente.connect(('localhost', self.porta))
+
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        # ssl_context.verify_mode = ssl.CERT_REQUIRED
+        ssl_context.load_verify_locations("cert_client/certificado.crt")
+
+        # SSL handshake
+        self.secure_client_socket = ssl_context.wrap_socket(self.socket_cliente, server_hostname="localhost")
+
+
 
     def send_message(self, msg):
         """
@@ -19,10 +29,11 @@ class Client(object):
             str: decoded message from server
         """
         self.logger.info("Encoding a mensagem!")
-        self.socket_cliente.send(msg.encode("utf-8"))
-        return self.socket_cliente.recv(1024).decode("utf-8")
+        self.secure_client_socket.send(msg.encode())
 
     def start_communication_with_server(self):
+
+
         sair = ""
         while True and sair != "Y":
             self.logger.info("Lendo a entrada do usuário!")
@@ -30,6 +41,7 @@ class Client(object):
 
             self.logger.info(f"Enviando mensagem para o servidor: {msg}")
             self.send_message(msg)
+            resposta = self.secure_client_socket.recv(1024).decode()
             self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
             sair = input("Deseja para a comunicação? Y/n")
@@ -40,3 +52,4 @@ class Client(object):
         # self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
         self.socket_cliente.close()
+        self.secure_client_socket.close()
