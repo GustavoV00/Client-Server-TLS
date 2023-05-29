@@ -95,6 +95,9 @@ class Client(object):
         if(option == self.env_variables["DELETE_ALL"]):
             self.delete_all(option)
 
+        if(option == self.env_variables["DELETE_BY_ID"]):
+            self.delete_by_id(option)
+
         elif(option == self.env_variables["FINISH"]):
             self.finish(option)
 
@@ -171,6 +174,39 @@ class Client(object):
         self.send_message(confirm)
         resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+    def delete_by_id(self, option):
+        self.logger.info("Enviando mensagem para 'Deletar dado por id'!")
+        self.send_message(option)
+
+        resposta = self.recv_message()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+        user = input("Digite o id: ")
+
+        while user.isdigit() == False:
+            print("Apenas números são permitidos!")
+            user = input("Digite o id: ")
+
+        self.send_message(user)
+
+        resposta = self.recv_message()
+
+        if resposta == "1":
+            self.logger.info(f"Resposta recebida do servidor: {resposta}")
+            confirm = input("Deseja realmente deletar o dado? (s/n): ")
+
+            while confirm != "s" and confirm != "n":
+                print("Opção inválida!")
+                confirm = input("Deseja realmente deletar o dado? (s/n): ")
+
+            self.send_message(confirm)
+
+            resposta = self.recv_message()
+
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+
 
     def finish(self, option):
         self.logger.info("Finalizando a comunicação com o servidor!")

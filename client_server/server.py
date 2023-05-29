@@ -76,8 +76,9 @@ class Server(object):
         elif(msg == self.env_variables["DELETE_ALL"]):
             msg_translated = "Deletar todos os dados!"
             return self.delete_all(msg_translated, secure_client_socket, address)
-        # elif(msg == self.env_variables["DELETE_BY_ID"]):
-        #     pass
+        elif(msg == self.env_variables["DELETE_BY_ID"]):
+            msg_translated = "Deletar dado por id!"
+            return self.delete_by_id(msg_translated, secure_client_socket, address)
         elif(msg == self.env_variables["FINISH"]):
             msg_translated = "Fechando Conexão!"
             return self.finish(msg_translated, secure_client_socket, address)
@@ -181,10 +182,42 @@ class Server(object):
             secure_client_socket.send(result_data.encode())
 
         return True
+    
+    def delete_by_id(self, msg, secure_client_socket, address):
+        self.logger.info(f"Mensagem recebida de {address} -> {msg}")
+        self.logger.info("Enviando mensagem requisitando ao cliente o id do dado que deseja deletar!")
 
+        result_data = "'Digite o id do dado que deseja deletar'"
+        secure_client_socket.send(result_data.encode())
 
-    def delete_by_id():
-        pass
+        data_id = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Recebendo do cliente o id: '{data_id}'")
+
+        self.logger.info("Procurando elemento no banco de dados")
+        result = self.hash_table.get(int(data_id))
+
+        if(result != None):
+            self.logger.info("Enviando mensagem requisitando confirmação do usuário!")
+            result = "1"
+            secure_client_socket.send(result.encode())
+
+            confirm = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+            if confirm == "s":
+                self.hash_table.remove(int(data_id))
+                self.logger.info("Dado deletado com sucesso!")
+
+                result_data = "'Dado deletado com sucesso!'"
+                secure_client_socket.send(result_data.encode())
+            else:
+                self.logger.info("Operação cancelada pelo usuário!")
+                result_data = "'Operação cancelada pelo usuário!'"
+                secure_client_socket.send(result_data.encode())
+        else:
+            self.logger.info("Usuario com id: '{data_id}' não encontrado!")
+            result = "Usuário não encontrado! Tente outro!"
+            secure_client_socket.send(result.encode())
+        return True
+
 
     def finish(self, msg, secure_client_socket, address):
         self.logger.info(f"Mensagem recebida de {address} -> {msg}")
