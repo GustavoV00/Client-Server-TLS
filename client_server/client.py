@@ -34,10 +34,9 @@ class Client(object):
         print("1 - Consultar")
         print("2 - Consultar por id")
         print("3 - Criar")
-        print("4 - Atualizar todos")
-        print("5 - Atualizar por id")
-        print("6 - Deletar todos")
-        print("7 - Deletar por id")
+        print("4 - Atualizar por id")
+        print("5 - Deletar todos")
+        print("6 - Deletar por id")
         print("-----------------------")
 
     def send_message(self, msg):
@@ -68,7 +67,6 @@ class Client(object):
                     self.logger.info(f"Enviando mensagem para o servidor: {option}!")
                     self.send_response_handler(option)
 
-
     def send_response_handler(self, option):
         self.switch(option)
 
@@ -79,6 +77,12 @@ class Client(object):
 
         if(option == self.env_variables["GET_BY_ID"]):
             self.get_by_id(option)
+
+        if(option == self.env_variables["CREATE"]):
+            self.create(option)
+
+        if(option == self.env_variables["UPDATE_BY_ID"]):
+            self.update_by_id(option)
 
         elif(option == self.env_variables["FINISH"]):
             self.finish(option)
@@ -92,10 +96,44 @@ class Client(object):
     def get_by_id(self, option):
         self.logger.info("Enviando mensagem para 'Consultar dado por id'!")
         self.send_message(option)
+
         resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
         data_id = input("Digite o id: ")
         self.send_message(data_id)
+
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+    def create(self, option):
+        self.logger.info("Enviando mensagem para 'Criar um novo dado'!")
+        self.send_message(option)
+
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+        user = input("Digite o novo usuario: ")
+        self.send_message(user)
+
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+    def update_by_id(self, option):
+        self.logger.info("Enviando mensagem para 'Atualizar um dado'!")
+        self.send_message(option)
+
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+        user = input("Digite o id: ")
+        self.send_message(user)
+
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+        user = input("Digite o nome do usuario para atualizar: ")
+        self.send_message(user)
 
         resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
