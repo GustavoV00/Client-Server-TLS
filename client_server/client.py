@@ -1,4 +1,5 @@
 from utils import log
+from utils import utils
 from dotenv import dotenv_values
 
 import socket
@@ -60,27 +61,51 @@ class Client(object):
                 self.print_server_options()
                 option = input("Digite a opção que deseja(apenas o número): ")
 
-                if(option.isdigit()):
-                    option = int(option)
-                    if(option <= 7 and option >= 0):
+                if(utils.validate_number_in_range(option, 0, 7, self.logger)):
+                    if(int(option) == 0):
                         valid_input = True
-                        if(option == 0):
-                            sair = True
-                    else:
-                        self.logger.info("Input de usuário está fora das opções corretas!")
-                else:
-                    self.logger.info("Input de usuário não é um número, tente novamente!")
+                        sair = True
+                    self.logger.info(f"Enviando mensagem para o servidor: {option}!")
+                    self.send_response_handler(option)
 
-            if(option > 0):
-                self.logger.info(f"Enviando mensagem para o servidor: {option}")
-                self.send_message(str(option))
-                resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
-                self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
+    def send_response_handler(self, option):
+        self.switch(option)
+
+    def switch(self, option):
+        option = str(option)
+        if(option == self.env_variables["GET_ALL"]):
+            self.get_all(option)
+
+        if(option == self.env_variables["GET_BY_ID"]):
+            self.get_by_id(option)
+
+        elif(option == self.env_variables["FINISH"]):
+            self.finish(option)
+
+    def get_all(self, option):
+        self.logger.info("Enviando mensagem para 'Consultar todos os dados'!")
+        self.send_message(option)
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+    def get_by_id(self, option):
+        self.logger.info("Enviando mensagem para 'Consultar dado por id'!")
+        self.send_message(option)
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+        data_id = input("Digite o id: ")
+        self.send_message(data_id)
+
+        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+    def finish(self, option):
+        self.logger.info("Finalizando a comunicação com o servidor!")
+        self.send_message(option)
+        self.close_communication()
 
     def close_communication(self):
-        self.logger.info("Enviando mensagem - 'Sair' - para terminar a comunicação!")
-        self.send_message(self.env_variables["FINISH"])
         # self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
         self.socket_cliente.close()

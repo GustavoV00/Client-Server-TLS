@@ -45,57 +45,58 @@ class Server(object):
         
         while True:
             
-            self.logger.info("Lendo mensagem do cliente")
+            self.logger.info("Recebendo opção do servidor!")
             msg_from_client = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
 
             # Msg should be the CRUD
-            result_data, msg_translated = self.crud_handler(msg_from_client)
-            self.logger.info(f"Mensagem recebida de {address} -> {msg_translated}")
-
-            if(result_data != 0):
-                self.logger.info("Respondendo o cliente!")
-                secure_client_socket.send(result_data.encode())
-
-            if result_data == 0:
-                self.logger.info(f"Finalizando comunicação com o cliente: {self.host}:{self.port}")
-                secure_client_socket.close()
-                return 
-
-    def close_communication(self):
-        self.socket_servidor.close()
-
+            if(not self.send_response_handler(msg_from_client, secure_client_socket, address)):
+                return
 
     # PRECISA FAZER UM CRUD DESSE PARA O CLIENT
-    def crud_handler(self, msg):
-        return self.switch(msg)
+    def send_response_handler(self, msg, secure_client_socket, address):
+        return self.switch(msg, secure_client_socket, address)
 
-    def switch(self, msg):
-        msg = int(msg)
-        if(msg == int(self.env_variables["GET_ALL"])):
-            return self.get_all()
+    def switch(self, msg, secure_client_socket, address):
+        if(msg == self.env_variables["GET_ALL"]):
+            msg_translated = "Consultar todos os dados!"
+            return self.get_all(msg_translated, secure_client_socket, address)
         
-        elif(msg == int(self.env_variables["GET_BY_ID"])):
-            self.get_by_id()
+        elif(msg == self.env_variables["GET_BY_ID"]):
+            msg_translated = "Consultar dado por id"
+            return self.get_by_id(msg_translated, secure_client_socket, address)
 
-        elif(msg == int(self.env_variables["CREATE"])):
+        elif(msg == self.env_variables["CREATE"]):
             self.create()
 
-        elif(msg == int(self.env_variables["UPDATE_ALL"])):
-            pass
-        elif(msg == int(self.env_variables["UPDATE_BY_ID"])):
-            pass
-        elif(msg == int(self.env_variables["DELETE_ALL"])):
-            pass
-        elif(msg == int(self.env_variables["DELETE_BY_ID"])):
-            pass
-        elif(msg == 0):
-            return [0, "Fechando Conexão!"]
+        # elif(msg == self.env_variables["UPDATE_ALL"]):
+        #     pass
+        # elif(msg == self.env_variables["UPDATE_BY_ID"]):
+        #     pass
+        # elif(msg == self.env_variables["DELETE_ALL"]):
+        #     pass
+        # elif(msg == self.env_variables["DELETE_BY_ID"]):
+        #     pass
+        elif(msg == self.env_variables["FINISH"]):
+            msg_translated = "Fechando Conexão!"
+            return self.finish(msg_translated, secure_client_socket, address)
 
-    def get_all(self):
-            return [json.dumps(self.hash_table.table), "Consultar todos os dados!"]
+    def get_all(self, msg, secure_client_socket, address):
+        self.logger.info("Respondendo o cliente!")
+        self.logger.info(f"Mensagem recebida de {address} -> {msg}")
+        result_data = json.dumps(self.hash_table.table)
+        secure_client_socket.send(result_data.encode())
+        return True
 
-    def get_by_id(self, id):
-        pass
+    def get_by_id(self, msg, secure_client_socket, address):
+        self.logger.info("Respondendo o cliente!")
+        self.logger.info(f"Mensagem recebida de {address} -> {msg}")
+
+        result_data = "'Digite o id que deseja!'"
+        secure_client_socket.send(result_data.encode())
+        data_id = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        result = self.hash_table.get(int(data_id))
+        secure_client_socket.send(result.encode())
+        return True
 
     def create(self):
         pass
@@ -111,3 +112,14 @@ class Server(object):
 
     def delete_by_id():
         pass
+
+    def finish(self, msg, secure_client_socket, address):
+        self.logger.info(f"Mensagem recebida de {address} -> {msg}")
+        self.logger.info(f"Finalizando comunicação com o cliente: {self.host}:{self.port}")
+        self.close_communication()
+        secure_client_socket.close()
+        return False
+
+    # TO DO: Close secure_client_socket and socket_servidor at the same method
+    def close_communication(self):
+        self.socket_servidor.close()

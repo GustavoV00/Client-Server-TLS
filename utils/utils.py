@@ -27,3 +27,14 @@ def generate_db_values():
 
     return hash
 
+def validate_number_in_range(value, range1, range2, logger):
+    if(value.isdigit()):
+        value = int(value)
+        if(value >= range1 and value <= range2):
+            return True
+        else:
+            logger.info("Input de usuário está fora das opções corretas!")
+    else:
+        logger.info("Input de usuário não é um número, tente novamente!")
+
+    return False
