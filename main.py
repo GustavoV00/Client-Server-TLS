@@ -1,4 +1,5 @@
 from utils import log
+from utils import utils as cf
 from client_server import client
 from client_server import server
 
@@ -7,7 +8,7 @@ import sys
 import logging
 
 localhost = "127.0.0.1"
-port = 5000
+config_path = "config.ini"
 
 
 if __name__ == "__main__":
@@ -21,17 +22,36 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if sys.argv[1] == "--client":
+        logger = log.Logging.get_logger("Client")
+        parser = cf.create_parser(config_path)
+
         while True:
             try:
-                client = client.Client(localhost, port)
+                client = client.Client(parser.config["client"])
                 client.start_communication_with_server()
                 client.close_communication()
+                break
             except ConnectionRefusedError:
-                print("Servidor não está respondendo, tentando novamente em 5 segundos...")
+                logger.info("Servidor não está respondendo, tentando novamente em 5 segundos...")
                 time.sleep(5)
 
     elif sys.argv[1] == "--server":
-        server = server.Server(localhost, port)
+        logger = log.Logging.get_logger("Server")
+
+        logger.info("Gerando dados no servidor!")
+        hash_table = cf.generate_db_values()
+        logger.info("Dados gerados com sucesso")
+
+        logger.info("Configurando o parser de configuração!")
+        parser = cf.create_parser(config_path)
+        logger.info("Terminado a configuração do parser do servidor!")
+
+        server = server.Server(hash_table, parser.config["server"])
         server.start_server()
         server.start_communication_with_client()
         server.close_communication()
+
+# TO DO: Do the kvs CRUD
+# Fix the parser values in the correct palces
+# Fix de TLS in the correct place using parser
+# Finishing the TLS
