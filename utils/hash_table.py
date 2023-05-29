@@ -19,6 +19,9 @@ class HashTable:
         if key in self.table:
             del self.table[key]
 
+    def delete_all(self):
+        self.table.clear()
+
     def update(self, key, new_value):
         self.table[key] = new_value
 

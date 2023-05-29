@@ -50,6 +50,14 @@ class Client(object):
         self.logger.info("Encoding a mensagem!")
         self.secure_client_socket.send(msg.encode())
 
+    def recv_message(self):
+        """
+        Returns:
+            str: decoded message from server
+        """
+        self.logger.info("Recebendo mensagem do servidor!")
+        return self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+
     def start_communication_with_server(self):
         sair = False
         option = ""
@@ -84,58 +92,84 @@ class Client(object):
         if(option == self.env_variables["UPDATE_BY_ID"]):
             self.update_by_id(option)
 
+        if(option == self.env_variables["DELETE_ALL"]):
+            self.delete_all(option)
+
         elif(option == self.env_variables["FINISH"]):
             self.finish(option)
 
     def get_all(self, option):
         self.logger.info("Enviando mensagem para 'Consultar todos os dados'!")
         self.send_message(option)
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
     def get_by_id(self, option):
         self.logger.info("Enviando mensagem para 'Consultar dado por id'!")
         self.send_message(option)
 
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
         data_id = input("Digite o id: ")
+        while data_id.isdigit() == False:
+            print("Apenas números são permitidos!")
+            data_id = input("Digite o id: ")
+
         self.send_message(data_id)
 
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
     def create(self, option):
         self.logger.info("Enviando mensagem para 'Criar um novo dado'!")
         self.send_message(option)
 
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
         user = input("Digite o novo usuario: ")
         self.send_message(user)
 
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
     def update_by_id(self, option):
         self.logger.info("Enviando mensagem para 'Atualizar um dado'!")
         self.send_message(option)
 
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
         user = input("Digite o id: ")
+
+        while user.isdigit() == False:
+            print("Apenas números são permitidos!")
+            user = input("Digite o id: ")
+
         self.send_message(user)
 
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
         user = input("Digite o nome do usuario para atualizar: ")
         self.send_message(user)
 
-        resposta = self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        resposta = self.recv_message()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+
+    def delete_all(self, option):
+        self.logger.info("Enviando mensagem para 'Deletar todos os dados'!")
+        self.send_message(option)
+        resposta = self.recv_message()
+        self.logger.info(f"Resposta recebida do servidor: {resposta}")
+        confirm = input("Deseja realmente deletar todos os dados? (s/n): ")
+        while confirm != "s" and confirm != "n":
+            print("Opção inválida!")
+            confirm = input("Deseja realmente deletar todos os dados? (s/n): ")
+
+        self.send_message(confirm)
+        resposta = self.recv_message()
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
     def finish(self, option):

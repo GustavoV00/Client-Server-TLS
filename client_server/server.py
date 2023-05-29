@@ -73,8 +73,9 @@ class Server(object):
         elif(msg == self.env_variables["UPDATE_BY_ID"]):
             msg_translated = "Atualizar um dado por id!"
             return self.update_by_id(msg_translated, secure_client_socket, address)
-        # elif(msg == self.env_variables["DELETE_ALL"]):
-        #     pass
+        elif(msg == self.env_variables["DELETE_ALL"]):
+            msg_translated = "Deletar todos os dados!"
+            return self.delete_all(msg_translated, secure_client_socket, address)
         # elif(msg == self.env_variables["DELETE_BY_ID"]):
         #     pass
         elif(msg == self.env_variables["FINISH"]):
@@ -160,8 +161,27 @@ class Server(object):
             secure_client_socket.send(result.encode())
         return True
 
-    def delete_all():
-        pass
+    def delete_all(self, msg, secure_client_socket, address):
+        self.logger.info(f"Mensagem recebida de {address} -> {msg}")
+        self.logger.info("Envia mensagem de confirmação para o cliente!")
+        result_data = "'Tem certeza que deseja deletar todos os dados? (S/N)'"
+        secure_client_socket.send(result_data.encode())
+
+        confirm = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        
+        if confirm == "s":
+            self.hash_table.delete_all()
+            self.logger.info("Todos os dados foram deletados com sucesso!")
+        
+            result_data = "'Todos os dados foram deletados com sucesso!'"
+            secure_client_socket.send(result_data.encode())
+        else:
+            self.logger.info("Operação cancelada pelo usuário!")
+            result_data = "'Operação cancelada pelo usuário!'"
+            secure_client_socket.send(result_data.encode())
+
+        return True
+
 
     def delete_by_id():
         pass
