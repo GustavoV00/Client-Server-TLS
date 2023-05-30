@@ -21,9 +21,10 @@ class Client(object):
 
         self.ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
 
-        # ssl_context.verify_mode = ssl.CERT_REQUIRED
+        self.ssl_context.verify_mode = ssl.CERT_REQUIRED
 
-        self.ssl_context.load_verify_locations(self.client_config["cert"])
+        self.ssl_context.load_verify_locations(self.client_config["server_cert"]) # Passa o certificado do servidor como confiável
+        self.ssl_context.load_cert_chain(self.client_config["cert"], self.client_config["key"])
 
         # SSL handshake
         self.secure_client_socket = self.ssl_context.wrap_socket(self.socket_cliente, server_hostname=self.client_config["hostname"])

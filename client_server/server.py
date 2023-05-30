@@ -33,9 +33,9 @@ class Server(object):
         client, address = self.socket_servidor.accept()
 
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-        # ssl_context.verify_mode = ssl.CERT_REQUIRED
+        ssl_context.verify_mode = ssl.CERT_REQUIRED
 
-        ssl_context.load_verify_locations(self.server_config["cert"])
+        ssl_context.load_verify_locations(self.server_config["client_cert"]) # Certicado confiavel pelo servidor
         ssl_context.load_cert_chain(certfile=self.server_config["cert"], keyfile=self.server_config["key"])
         
 
