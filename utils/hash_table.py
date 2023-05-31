@@ -1,3 +1,9 @@
+# Trabalho para a disciplina Tópicos em Redes 
+# Sistema cliente/servidor com comunicação segura
+# Autores: Gustavo Valente Nunes | GRR: 20182557 
+#          Henrique Prokopenko | GRR20186712
+# Data: 31/05/2023
+
 class HashTable:
 
     def __init__(self):
