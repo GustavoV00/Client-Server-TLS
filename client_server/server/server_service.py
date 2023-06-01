@@ -142,7 +142,7 @@ class ServerService(object):
             secure_client_socket.send(result.encode())
         return True
 
-    def finish(self, msg, secure_client_socket, address):
+    def finish(self, msg, address):
         self.logger.info(f"Mensagem recebida de {address} -> {msg}")
-        self.logger.info(f"Finalizando comunicação com o cliente: {self.host}:{self.port}")
+        self.logger.info("Finalizando comunicação com o cliente")
         return False

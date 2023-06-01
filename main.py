@@ -8,12 +8,25 @@ from utils import log
 from utils import utils as cf
 from client_server.client import client
 from client_server.server import server
+from scapy.all import *
 
 import time
 import sys
 import logging
 
 config_path = "config.ini"
+
+
+# Função de configuração, que indica o que fazer com os pacotes sniffados
+def sniffTcpPacket(pkt):
+    # Verifica se existe o TCP no pacote 
+    if pkt.haslayer(TCP):
+        tcp = pkt[TCP]
+        # Caso exista, apenas imprime a porta da origem e destino e imprime o payload
+        print("TCP port: {} --> {} && TCP Payload: {} \n".format(tcp.sport, tcp.dport, tcp.payload))
+        if Raw in pkt:
+            load = pkt[Raw].load
+            print(load)
 
 if __name__ == "__main__":
     log.Logging.setup(True, None, logging.INFO)
@@ -67,3 +80,12 @@ if __name__ == "__main__":
         server = server.Server(hash_table, parser.config["server"])
         server.start_communication_with_client()
         server.close_communication()
+
+    elif sys.argv[1] == "--sniffer":
+        # Função do scapy para fazer o sniffer
+        # sniff(iface="lo", filter='tcp', prn=sniffTcpPacket)
+        sniff(iface="lo", filter='dst port 5002', prn=sniffTcpPacket)
+
+
+
+

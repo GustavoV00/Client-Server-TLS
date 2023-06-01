@@ -89,7 +89,7 @@ class Server(object):
 
         elif(msg == self.commands.FINISH.value):
             msg_translated = "Fechando Conexão!"
-            return self.server_service.finish(msg_translated, secure_client_socket, address)
+            return self.server_service.finish(msg_translated, address)
 
     def close_communication(self):
         self.connection.close()

@@ -68,4 +68,5 @@ def send_message(msg, logger, connection):
 
 def recv_message(logger, connection, msg_size):
     logger.info("Recebendo mensagem do servidor!")
+
     return connection.recv(msg_size).decode()

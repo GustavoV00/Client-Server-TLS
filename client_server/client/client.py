@@ -86,6 +86,5 @@ class Client(object):
     def close_communication(self):
         # self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
-        self.socket_client.close()
-        self.secure_client_socket.close()
+        self.connection.close()
         self.logger.info("Client Finalizado!")
