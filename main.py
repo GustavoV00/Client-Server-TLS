@@ -54,8 +54,3 @@ if __name__ == "__main__":
         server = server.Server(hash_table, parser.config["server"])
         server.start_server()
         server.start_communication_with_client()
-
-# TO DO: Do the kvs CRUD
-# Fix the parser values in the correct palces
-# Fix de TLS in the correct place using parser
-# Finishing the TLS

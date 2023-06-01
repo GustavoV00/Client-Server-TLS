@@ -5,7 +5,7 @@
 # Data: 31/05/2023
 
 from utils import log
-from dotenv import dotenv_values
+from utils import commands
 
 import socket
 import ssl
@@ -22,7 +22,7 @@ class Server(object):
         self.server_config = parser
         self.host = self.server_config["hostname"]
         self.port = int(self.server_config["port"])
-        self.env_variables = dotenv_values(self.server_config["env"])
+        self.commands = commands.Commands
 
         self.hash_table = hash_table
         self.socket_servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,7 +43,6 @@ class Server(object):
 
         ssl_context.load_verify_locations(self.server_config["client_cert"]) # Certicado confiavel pelo servidor
         ssl_context.load_cert_chain(certfile=self.server_config["cert"], keyfile=self.server_config["key"])
-        
 
         # SSL handshake
         secure_client_socket = ssl_context.wrap_socket(client, server_side=True)
@@ -52,7 +51,7 @@ class Server(object):
         while True:
             
             self.logger.info("Recebendo opção do cliente!")
-            msg_from_client = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+            msg_from_client = secure_client_socket.recv(self.commands.SIZE.value).decode()
 
             # Msg should be the CRUD
             if(not self.send_response_handler(msg_from_client, secure_client_socket, address)):
@@ -64,28 +63,32 @@ class Server(object):
 
     def switch(self, msg, secure_client_socket, address):
         self.logger.info("Respondendo o cliente!")
-        if(msg == self.env_variables["GET_ALL"]):
+        msg = int(msg)
+        if(msg == self.commands.GET_ALL.value):
             msg_translated = "Consultar todos os dados!"
             return self.get_all(msg_translated, secure_client_socket, address)
         
-        elif(msg == self.env_variables["GET_BY_ID"]):
+        elif(msg == self.commands.GET_BY_ID.value):
             msg_translated = "Consultar dado por id!"
             return self.get_by_id(msg_translated, secure_client_socket, address)
 
-        elif(msg == self.env_variables["CREATE"]):
+        elif(msg == self.commands.CREATE.value):
             msg_translated = "Criar um novo dado!"
             return self.create(msg_translated, secure_client_socket, address)
 
-        elif(msg == self.env_variables["UPDATE_BY_ID"]):
+        elif(msg == self.commands.UPDATE_BY_ID.value):
             msg_translated = "Atualizar um dado por id!"
             return self.update_by_id(msg_translated, secure_client_socket, address)
-        elif(msg == self.env_variables["DELETE_ALL"]):
+
+        elif(msg == self.commands.DELETE_ALL.value):
             msg_translated = "Deletar todos os dados!"
             return self.delete_all(msg_translated, secure_client_socket, address)
-        elif(msg == self.env_variables["DELETE_BY_ID"]):
+
+        elif(msg == self.commands.DELETE_BY_ID.value):
             msg_translated = "Deletar dado por id!"
             return self.delete_by_id(msg_translated, secure_client_socket, address)
-        elif(msg == self.env_variables["FINISH"]):
+
+        elif(msg == self.commands.FINISH.value):
             msg_translated = "Fechando Conexão!"
             return self.finish(msg_translated, secure_client_socket, address)
 
@@ -104,7 +107,7 @@ class Server(object):
         result_data = "'Digite o id que deseja!'"
         secure_client_socket.send(result_data.encode())
 
-        data_id = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        data_id = secure_client_socket.recv(self.commands.SIZE.value).decode()
         self.logger.info(f"Recebendo do cliente o novo id: '{data_id}")
 
         self.logger.info("Procurando elemento no banco de dados")
@@ -126,7 +129,7 @@ class Server(object):
         result_data = "'Digite o nome do novo usuario'"
         secure_client_socket.send(result_data.encode())
 
-        usuario = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        usuario = secure_client_socket.recv(self.commands.SIZE.value).decode()
         self.logger.info(f"Nome do novo usuário recebido: '{usuario}'")
         self.hash_table.insert(usuario)
 
@@ -143,7 +146,7 @@ class Server(object):
         result_data = "'Digite o nome do novo id'"
         secure_client_socket.send(result_data.encode())
 
-        data_id = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        data_id = secure_client_socket.recv(self.commands.SIZE.value).decode()
         self.logger.info(f"Recebendo do cliente o novo id: '{data_id}")
 
         self.logger.info("Procurando elemento no banco de dados")
@@ -154,7 +157,7 @@ class Server(object):
             result = "'Digite o nome do novo usuario'"
             secure_client_socket.send(result.encode())
 
-            new_username = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+            new_username = secure_client_socket.recv(self.commands.SIZE.value).decode()
             self.logger.info(f"Recebendo o novo nome: '{new_username}' do id: '{data_id}")
 
             self.hash_table.update(int(data_id), new_username)
@@ -174,7 +177,7 @@ class Server(object):
         result_data = "'Tem certeza que deseja deletar todos os dados? (S/N)'"
         secure_client_socket.send(result_data.encode())
 
-        confirm = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        confirm = secure_client_socket.recv(self.commands.SIZE.value).decode()
         
         if confirm == "s":
             self.hash_table.delete_all()
@@ -196,7 +199,7 @@ class Server(object):
         result_data = "'Digite o id do dado que deseja deletar'"
         secure_client_socket.send(result_data.encode())
 
-        data_id = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        data_id = secure_client_socket.recv(self.commands.SIZE.value).decode()
         self.logger.info(f"Recebendo do cliente o id: '{data_id}'")
 
         self.logger.info("Procurando elemento no banco de dados")
@@ -207,7 +210,7 @@ class Server(object):
             result = "1"
             secure_client_socket.send(result.encode())
 
-            confirm = secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+            confirm = secure_client_socket.recv(self.commands.SIZE.value).decode()
             if confirm == "s":
                 self.hash_table.remove(int(data_id))
                 self.logger.info("Dado deletado com sucesso!")

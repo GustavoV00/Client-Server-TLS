@@ -6,7 +6,7 @@
 
 from utils import log
 from utils import utils
-from dotenv import dotenv_values
+from utils import commands
 
 import socket
 import ssl
@@ -20,7 +20,7 @@ class Client(object):
         self.host = self.client_config["hostname"]
         self.porta = int(self.client_config["port"])
 
-        self.env_variables = dotenv_values(self.client_config["env"])
+        self.commands = commands.Commands
 
         self.socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket_cliente.connect((self.client_config["hostname"], self.porta))
@@ -63,7 +63,7 @@ class Client(object):
             str: decoded message from server
         """
         self.logger.info("Recebendo mensagem do servidor!")
-        return self.secure_client_socket.recv(int(self.env_variables["SIZE"])).decode()
+        return self.secure_client_socket.recv(self.commands.SIZE.value).decode()
 
     def start_communication_with_server(self):
         sair = False
@@ -79,34 +79,41 @@ class Client(object):
                     if(int(option) == 0):
                         valid_input = True
                         sair = True
-                    self.logger.info(f"Enviando mensagem para o servidor: {option}!")
                     self.send_response_handler(option)
 
     def send_response_handler(self, option):
         self.switch(option)
 
     def switch(self, option):
-        option = str(option)
-        if(option == self.env_variables["GET_ALL"]):
-            self.get_all(option)
+        option = int(option)
+        print(type(option))
+        if(option == self.commands.GET_ALL.value):
+            self.logger.info("Enviando mensagem para o servidor: Consultar!")
+            self.get_all(str(option))
 
-        if(option == self.env_variables["GET_BY_ID"]):
-            self.get_by_id(option)
+        if(option == self.commands.GET_BY_ID.value):
+            self.logger.info("Enviando mensagem para o servidor: Consultar por id!")
+            self.get_by_id(str(option))
 
-        if(option == self.env_variables["CREATE"]):
-            self.create(option)
+        if(option == self.commands.CREATE.value):
+            self.logger.info("Enviando mensagem para o servidor: Criar!")
+            self.create(str(option))
 
-        if(option == self.env_variables["UPDATE_BY_ID"]):
-            self.update_by_id(option)
+        if(option == self.commands.UPDATE_BY_ID.value):
+            self.logger.info("Enviando mensagem para o servidor: Atualizar por id!")
+            self.update_by_id(str(option))
 
-        if(option == self.env_variables["DELETE_ALL"]):
-            self.delete_all(option)
+        if(option == self.commands.DELETE_ALL.value):
+            self.logger.info("Enviando mensagem para o servidor: Deletar todos")
+            self.delete_all(str(option))
 
-        if(option == self.env_variables["DELETE_BY_ID"]):
-            self.delete_by_id(option)
+        if(option == self.commands.DELETE_BY_ID.value):
+            self.logger.info("Enviando mensagem para o servidor: Deletar por id")
+            self.delete_by_id(str(option))
 
-        elif(option == self.env_variables["FINISH"]):
-            self.finish(option)
+        elif(option == self.commands.FINISH.value):
+            self.logger.info("Enviando mensagem para o servidor: Sair!")
+            self.finish(str(option))
 
     def get_all(self, option):
         self.logger.info("Enviando mensagem para 'Consultar todos os dados'!")
