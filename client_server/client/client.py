@@ -16,9 +16,17 @@ import ssl
 class Client(object):
     def __init__(self, parser):
         self.logger = log.Logging.get_logger(self.__class__.__name__)
+        self.logger.set
         self.commands = commands.Commands
         self.context = self.create_sll_context(parser)
-        self.connection = self.create_socket_connection(parser)
+
+        try:
+            self.connection = self.create_socket_connection(parser)
+            self.logger.info("Conexão estabelecida com sucesso!")
+        except Exception as e:
+            self.logger.info(f"Erro ao criar conexão com o servidor: {e}")
+            exit(1)
+
         self.client_service = client_service.ClientService(self.logger, self.connection, self.commands.SIZE.value)
 
     def create_sll_context(self, parser):
@@ -54,7 +62,6 @@ class Client(object):
 
     def send_response_handler(self, option):
         option = int(option)
-        print(type(option))
         if(option == self.commands.GET_ALL.value):
             self.logger.info("Enviando mensagem para o servidor: Consultar!")
             self.client_service.get_all(str(option))

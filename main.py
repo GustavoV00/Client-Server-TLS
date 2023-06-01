@@ -52,7 +52,7 @@ if __name__ == "__main__":
                 logger.info("Servidor não está respondendo, tentando novamente em 5 segundos...")
                 time.sleep(5)
 
-    if sys.argv[1] == "--intruder":
+    if sys.argv[1] == "--clientintruder":
         logger = log.Logging.get_logger("Client")
         parser = cf.create_parser(config_path)
 
@@ -65,6 +65,21 @@ if __name__ == "__main__":
             except ConnectionRefusedError:
                 logger.info("Servidor não está respondendo, tentando novamente em 5 segundos...")
                 time.sleep(5)
+     
+    elif sys.argv[1] == "--serverintruder":
+        logger = log.Logging.get_logger("Server")
+
+        logger.info("Gerando dados no servidor!")
+        hash_table = cf.generate_db_values()
+        logger.info("Dados gerados com sucesso")
+
+        logger.info("Configurando o parser de configuração!")
+        parser = cf.create_parser(config_path)
+        logger.info("Terminado a configuração do parser do servidor!")
+
+        server = server.Server(hash_table, parser.config["intruder"])
+        server.start_communication_with_client()
+        server.close_communication()
 
     elif sys.argv[1] == "--server":
         logger = log.Logging.get_logger("Server")
@@ -80,6 +95,7 @@ if __name__ == "__main__":
         server = server.Server(hash_table, parser.config["server"])
         server.start_communication_with_client()
         server.close_communication()
+
 
     elif sys.argv[1] == "--sniffer":
         # Função do scapy para fazer o sniffer

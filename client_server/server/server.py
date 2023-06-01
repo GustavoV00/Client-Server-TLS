@@ -47,8 +47,12 @@ class Server(object):
     def start_communication_with_client(self):
         
         client, address = self.server_socket.accept()
-        self.connection = self.ssl_context.wrap_socket(client, server_side=True) # ssl handshake
-        self.logger.info("Conexão estabelecida com sucesso!")
+        try:
+            self.connection = self.ssl_context.wrap_socket(client, server_side=True) # ssl handshake
+            self.logger.info("Conexão estabelecida com sucesso!")
+        except Exception as e:
+            self.logger.info(f"Erro ao criar conexão com o cliente: {e}")
+            exit(1)
         
         while True:
             
