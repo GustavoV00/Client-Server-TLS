@@ -6,16 +6,14 @@
 
 from utils import log
 from utils import utils as cf
-from client_server import client
-from client_server import server
+from client_server.client import client
+from client_server.server import server
 
 import time
 import sys
 import logging
 
-localhost = "127.0.0.1"
 config_path = "config.ini"
-
 
 if __name__ == "__main__":
     log.Logging.setup(True, None, logging.INFO)
@@ -35,6 +33,7 @@ if __name__ == "__main__":
             try:
                 client = client.Client(parser.config["client"])
                 client.start_communication_with_server()
+                client.close_communication()
                 break
             except ConnectionRefusedError:
                 logger.info("Servidor não está respondendo, tentando novamente em 5 segundos...")
@@ -52,5 +51,4 @@ if __name__ == "__main__":
         logger.info("Terminado a configuração do parser do servidor!")
 
         server = server.Server(hash_table, parser.config["server"])
-        server.start_server()
         server.start_communication_with_client()

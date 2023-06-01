@@ -24,7 +24,7 @@ def generate_db_values():
 
     i = 0
     hash = hash_table.HashTable()
-    while(i < 100):
+    while(i < 30):
         usuario = f"usuario{random.randint(0, 1000)}"
         if(hash.insert(usuario)):
             i += 1
@@ -44,3 +44,28 @@ def validate_number_in_range(value, range1, range2, logger):
         logger.info("Input de usuário não é um número, tente novamente!")
 
     return False
+
+def print_server_options():
+    print("---------OPÇÕES---------")
+    print("0 - Sair")
+    print("1 - Consultar")
+    print("2 - Consultar por id")
+    print("3 - Criar")
+    print("4 - Atualizar por id")
+    print("5 - Deletar todos")
+    print("6 - Deletar por id")
+    print("-----------------------")
+
+def parse_str_to_int(string):
+    return int(string)
+
+def parse_int_to_str(integer):
+    return str(integer)
+
+def send_message(msg, logger, connection):
+    logger.info("Encoding a mensagem!")
+    connection.send(msg.encode())
+
+def recv_message(logger, connection, msg_size):
+    logger.info("Recebendo mensagem do servidor!")
+    return connection.recv(msg_size).decode()
