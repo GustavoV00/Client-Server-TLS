@@ -73,7 +73,7 @@
 
 				<p>
                     A primeira coisa a ser feita foi criar uma conexão utilizando sockets sem se importar com o tls, apenas para se ter algum projeto inicial e entender como que a comunicação iria funcionar.
-                    Para deixar o cógio organizado, fizemos duas classes, uma para o cliente e outra para o servidor. Em sua primeira versão, para se criar o socket ficou mais ou menos da seguinte forma:
+                    Para deixar o código organizado, fizemos duas classes, uma para o cliente e outra para o servidor. Em sua primeira versão, para se criar o socket ficou mais ou menos da seguinte forma:
                 </p>
                 <pre>
                     <code class="language-python">
@@ -105,7 +105,7 @@
                 </p>
 
                 <p>
-                    Depois de termos toda a implementação do crud no client em client_service.py e no servidor em server_service.py, então decidimos realizar a crição do tls para termos a comunicação segura. Ela foi feita da seguinte forma:
+                    Depois de termos toda a implementação do crud no client em client_service.py e no servidor em server_service.py, então decidimos realizar a criação do tls para termos a comunicação segura. Ela foi feita da seguinte forma:
                 </p>
 
                 <pre>
@@ -137,7 +137,7 @@
                     Para demonstrarmos o sigilo, será utilizado 3 vídeos rápidos de demonstração.
                     <ul>
                         <li><b>Sigilo:</b> Demonstrando a transmissão dos dados criptografados e original através do wireshark. <a href="/doc/web/static/sigilo.mp4">Video</a></li>
-                        <li><b>Autenticidade:</b> Um intrusor tentou se passar pelo cliente original e tentou realizar a comunicação com o servidor. Porém, como é uma comunicação segura, a confirmação de autenticidade do "Cliente Intrusor" gera um erro no lado do cliente, falando que é um certificado não confiável e acontece a mesma coisa com o servidor intrusor. <a href="/doc/web/static/autenticidade.mp4">Video</a></li>
+                        <li><b>Autenticidade:</b> Um intrusor tentou se passar pelo cliente original e tentou realizar a comunicação com o servidor. Porém, como é uma comunicação segura, a confirmação de autenticidade do "Cliente Intrusor" gera um erro no lado do cliente, falando que é um certificado não confiável. Testamos um servidor intrusor e o resultado foi que o cliente não se conecta pois ele detecta o certificado inválido do servidor intrusor. <a href="/doc/web/static/autenticidade.mp4">Video</a></li>
                         <li><b>Integridade:</b> Trocamos alguns bits de um pacote de rede capturado no wireshark, como o wireshark tem acesso as chaves públicas e privadas
                             do cliente e do servidor ele consegue descriptografar o tráfego de rede, então após trocarmos os bits mostramos que o wireshark não consegue 
                             mais descriptografar assim como o nosso sistema cliente servidor. <a href="/doc/web/static/integridade.mp4">Video</a></li>
@@ -154,7 +154,7 @@
                         <th>Comando</th>
                         <th>flag</th>
                         <th>Geral</th>
-                        <th>Descrição</th>
+                        <th>Descriação</th>
                     </thead>
                     <tbody>
                         <tr>
@@ -179,7 +179,7 @@
                             <td>python3 main.py</td>
                             <td>--serverintruder</td>
                             <td>python3 main.py --serverintruder</td>
-                            <td>Roda o lado do servidor<td>
+                            <td>Roda o lado do servidor com certificado do intrusor<td>
                         </tr>
                     </tbody>
                 </table>
@@ -192,7 +192,7 @@
                 <table class="table table-bordered table-stripped text-center">
                     <thead class="thead-dark">
                         <th>Arquivo</th>
-                        <th>Descrição</th>
+                        <th>Descriação</th>
                     </thead>
                     <tbody>
                         <tr>
