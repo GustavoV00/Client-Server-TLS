@@ -16,7 +16,6 @@ import ssl
 class Client(object):
     def __init__(self, parser):
         self.logger = log.Logging.get_logger(self.__class__.__name__)
-        self.logger.set
         self.commands = commands.Commands
         self.context = self.create_sll_context(parser)
 

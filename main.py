@@ -53,7 +53,7 @@ if __name__ == "__main__":
                 time.sleep(5)
 
     if sys.argv[1] == "--clientintruder":
-        logger = log.Logging.get_logger("Client")
+        logger = log.Logging.get_logger("Client Intruder")
         parser = cf.create_parser(config_path)
 
         while True:
@@ -67,7 +67,7 @@ if __name__ == "__main__":
                 time.sleep(5)
      
     elif sys.argv[1] == "--serverintruder":
-        logger = log.Logging.get_logger("Server")
+        logger = log.Logging.get_logger("Server Intruder")
 
         logger.info("Gerando dados no servidor!")
         hash_table = cf.generate_db_values()
