@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trabalho de Tópico em Redes 2023</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+  </head>
+  <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mt-2">
+                        <a href="#autores" class="nav-link">Autores</a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a href="#especificacao" class="nav-link">Especificação</a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a href="#relatorio" class="nav-link">Relatório</a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a href="#arquivos" class="nav-link">Arquivos</a>
+                    </li>
+                </ul>
+            </div>
+    
+        </nav>
+    </header>
+    <main class="container">
+		<section id="autores" class="text-center">
+			<h1>Trabalho de Tópico em Redes</h1>
+			<h2>Implementação Client Servidor com TLS</h2>
+            <h3 class="h5">(2023-1)</h3>
+
+			<hr>
+			
+			<p class="mb-0">Gustavov Valente - GRR20182557</p>
+            <p>Henrique Prokopenko - GRR20186712</p>
+			<hr>
+        </section>
+        <section id="especificacao">
+			<div class="container text-center">
+				<h4>Especificação do trabalho</h4><br>
+					<div class="col-sm">
+						<p><b>TRABALHO PRÁTICO</b></p>
+						<p><b>Implementação do Client Servidor com TLS</b></p>
+                    </div>
+			</div>
+            <div class="text-left">
+                <p>
+                    A dupla vai fazer uma aplicação cliente/servidor simples baseada em KVS (Key-Value Store). O servidor mantém uma base de dados, que o cliente pode consultar, alterar... A comunicação cliente/servidor é segura: garantindo sigilo, autenticidade e integridade. Cada uma destas propriedades deve ser demonstrada: 
+                </p>
+                <ul>
+                    <li>Sigilo: mostre os dados criptografados transmitidos (imprimindo junto a versão original)</li>
+                    <li>Autenticidade: um invasor tenta comunicar com o servidor ou com o cliente, mostre que não consegue</li>
+                    <li>Integridade: troque o valor de alguns bits da mensagem e mostre que não descriptografa corretamente</li>
+                </ul>
+                <p>
+
+                </p>
+            </div>
+		</section>
+		<hr><br>
+        <section id="relatorio">
+			<div class="container">
+				<h4 class="text-center mb-4">Relatório do Trabalho Prático - Cliente Servidor com TLS</h4>
+
+				<p>
+                    A primeira coisa a ser feita foi criar uma conexão utilizando sockets sem se importar com o tls, apenas para se ter algum projeto inicial e entender como que a comunicação iria funcionar.
+                    Para deixar o cógio organizado, fizemos duas classes, uma para o cliente e outra para o servidor. Em sua primeira versão, para se criar o socket ficou mais ou menos da seguinte forma:
+                </p>
+                <pre>
+                    <code class="language-python">
+                        def criar_server_socket():
+                            socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) -> Para se criar o socket
+                            socket.bind((hostname, port)) -> Para fazer o bind no host e na porta
+                            socket.listen(valor) -> Para poder fazer o handler de 'valor' clientes ao mesmo tempo.
+                            socket.accept() -> Para aceitar uma conexão do cliente, porém foi realizado em outra função. Está aqui apenas para ter a representação.
+
+                        def criar_client_socket():
+                            socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) -> Para se criar o socket
+                            client_socket.connect((hostname, port)) -> Precisa ser o mesmo host e porta que o servidor
+                    </code>
+                </pre>
+				<p>
+                    Esse seria uma primeira versão do nosso cliente servidor. Logo após isso, criamos um método tanto para o cliente quanto para o servidor de enviar e receber mensagens. Com isso, conseguimos
+                    ter uma estrutura inicial do projeto.
+                </p>
+				<p>
+                    Antes de iniciar com o tls, realizamos todo o crud primeiro. Existem 7 opções de comandos no cliente servidor. Eles são:
+                    <ul>
+                        <li><b>GET_ALL:</b> O cliente envia mensagem para o servidor requisitando todos os dados dos usuários</li>
+                        <li><b>GET_BY_ID:</b> O cliente seleciona que desejar requisitar apenas um <i>id</i>, então o servidor pergunta qual <i>id</i> e o cliente responde como um input do usuário o <i>id</i> e para finalizar o cliente envia esse usuário ao cliente.</li>
+                        <li><b>CREATE:</b> O usuário seleciona que deseja criar um novo usuário, então o servidor processa essa requisição e pergunta ao cliente qual o nome do novo usuário. Após o servidor receber o nome do novo usuário ele cria o dado e confirma a criação do dado, enviando uma mensagem de confirmação ao cliente.</li>
+                        <li><b>UPDATE_BY_ID:</b> O cliente envia uma mensagem requisitando o usuário de <i>id</i> especifico para atualizar.</li>
+                        <li><b>DELETE_ALL:</b> O cliente envia uma requisição para o servidor deletar todas as mensagens que estão no servidor.</li>
+                        <li><b>DELETE_BY_id:</b> O cliente envia uma requisição para servidor para deletar o usuário de <i>id</i> especifíco.</li>
+                    </ul>
+                </p>
+
+                <p>
+                    Depois de termos toda a implementação do crud no client em client_service.py e no servidor em server_service.py, então decidimos realizar a crição do tls para termos a comunicação segura. Ela foi feita da seguinte forma:
+                </p>
+
+                <pre>
+                    <code class="language-python">
+                        def create_sll_context(self, parser):
+                            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+                            context.verify_mode = ssl.CERT_REQUIRED
+                            context.load_verify_locations(parser["server_cert"]) -> Certificado confiável do servidor,
+                            context.load_cert_chain(parser["cert"], parser["key"]) -> Verifica a chave e o certificado está no arquivo cert/client ou server/certificado.crt e a chave em cert/client ou server/certificado.key
+                            return context
+                    
+                        def create_socket_connection(self, parser):
+                            socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                            secure_client_socket = self.context.wrap_socket(socket_client, server_hostname=parser["hostname"], server_side=False)
+                            secure_client_socket.connect((parser["hostname"], int(parser["port"])))
+                            return secure_client_socket
+                    </code>
+                </pre>
+
+                <p>
+                    Como já tinhamos tudo implementado anteriormente, basta atualizarmos o código para utilizar a conexão de comunicação segura.
+                </p>
+
+                <p>
+                    <b>**Nota:</b> Os dados usuários, é apenas uma string do tipo 'usuario<i>X</i>', onde <i>X</i> é um numero aleatório. Então temos um dicionário de usuários do tipo: {1: "usuario23", 2: "usuario43", ..., 30: "usuario40"} como a representação dos dados. Esses dados são gerados na inicialização do servidor, no arquivo main.py e o arquivo que armazena esses dados é o hash_table.py.
+                </p>
+
+                <p>
+                    Para demonstrarmos o sigilo, será utilizado 3 vídeos rápidos de demonstração.
+                    <ul>
+                        <li><b>Sigilo:</b> Demonstrando a transmissão dos dados criptografados e original através do wireshark. <a href="/doc/web/static/sigilo.mkv">Video</a></li>
+                        <li><b>Autenticidade:</b> Um intrusor tentou se passar pelo cliente original e tento realizar a comunicação com o servidor. Porém, como é uma comunicação segura, a confirmação de autenticidade do "Cliente Intrusor" gera um erro no lado do cliente, falando que é um certificado não confiável. <a href="/doc/web/static/autenticidade.mkv">Video</a></li>
+                        <li><b>Integridade:</b>  <a href="/doc/web/static/integridade.mkv">Video</a></li>
+                    </ul>
+                </p>
+			</div>
+		</section>
+		<hr><br>
+        <section id="arquivos">
+			<h4 class="text-center">Como Rodar</h4>
+			<div class="card m-3" style="width: 100%">
+                <table class="table table-bordered table-stripped text-center">
+                    <thead class="thead-dark">
+                        <th>Comando</th>
+                        <th>flag</th>
+                        <th>Geral</th>
+                        <th>Descrição</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>python3 main.py</td>
+                            <td>--client</td>
+                            <td>python3 main.py --client</td>
+                            <td>Roda o lado do cliente</td>
+                        </tr>
+                        <tr>
+                            <td>python3 main.py</td>
+                            <td>--clientintruder</td>
+                            <td>python3 main.py --clientintruder</td>
+                            <td>Roda o cliente com certificado do intrusor</td>
+                        </tr>
+                        <tr>
+                            <td>python3 main.py</td>
+                            <td>--server</td>
+                            <td>python3 main.py --server</td>
+                            <td>Roda o lado do servidor<td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <hr />
+        <section id="arquivos">
+			<h4 class="text-center">Arquivos - Trab 2</h4>
+			<div class="card m-3" style="width: 100%">
+                <table class="table table-bordered table-stripped text-center">
+                    <thead class="thead-dark">
+                        <th>Arquivo</th>
+                        <th>Descrição</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="./cisj.c.txt" class="card-link">main.py</a></td>
+                            <td>Responsável por iniciar o projeto. Tanto para o cliente quanto para o servidor.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./cisj.c.txt" class="card-link">client.py</a></td>
+                            <td>Responsável pela criação do socket,ssl e faz o gerenciamento do crud do lado do cliente.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./cisj.h.txt" class="card-link">client_service.py</a></td>
+                            <td>Está a implementação completa do crud (chama hash_table.py) do lado do cliente.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./rand.c.txt" class="card-link">server.c</a></td>
+                            <td>Responsável pela criação do socket,ssl e faz o gerenciamento do crud do lado do server.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./cisj.h.txt" class="card-link">server_service.py</a></td>
+                            <td>Está a implementação completa do crud (chama hash_table.py) do lado do servidor.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./smpl.h.txt" class="card-link">commands.py</a></td>
+                            <td>É uma classe enum utilizada tanto pelo servidor quanto pelo cliente para indicar os commandos possíveis.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./utils.c.txt" class="card-link">hash_table.py</a></td>
+                            <td>É a classe que faz as operações do crud, inserir, remover, atualizar e criar. É nessa classe que os dados são guardados, através de um dicionário.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./utils.h.txt" class="card-link">log.py</a></td>
+                            <td>É uma classe de log, que faz tanto o log para o cliente quanto para o servidor.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./vcube.c.txt" class="card-link">parser.py</a></td>
+                            <td>Faz o parser do arquivo de configuração config.ini que o cliente e o servidor utilizam</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./vcube.h.txt" class="card-link">start_config.py</a></td>
+                            <td>Classe utilizada pelo parser.py, para poder ler os arquivos do config.ini</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./vcube.h.txt" class="card-link">utils.py</a></td>
+                            <td>Algumas funções de utilidade, como imprimir algumas coisas, fazer parser de outras.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">config.ini</a></td>
+                            <td>Arquivo de configuração para o cliente, servidor e intrusor</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">cert/client/certificate.crt</a></td>
+                            <td>Certificado do client</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">cert/client/certificate.key</a></td>
+                            <td>Key do client</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">cert/server/certificate.crt</a></td>
+                            <td>Certificado do servidor</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">cert/server/certificate.key</a></td>
+                            <td>Key do servidor</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">cert/intruder/certificate.crt</a></td>
+                            <td>Certificado do intruder</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">cert/intruder/certificate.key</a></td>
+                            <td>Key do intruder</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./config.ini" class="card-link">cert/localhost.conf</a></td>
+                            <td>Configurações do certificado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section>
+			<h4 class="text-center">Testes - Trab 2</h4>
+			<div class="card m-3" style="width: 100%">
+                <table class="table table-bordered table-stripped text-center">
+                    <thead class="thead-dark">
+                        <th>Comando</th>
+                        <th>Log Cliente</th>
+                        <th>Log Servidor</th>
+                        <th>Comentários</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET_ALL</td>
+                            <td><a href="/doc/web/logs/client_get_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="/doc/web/logs/server_get_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td class="text-left">
+                                <p>Foi realizado uma consulta de todos os dados.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GET_BY_ID</td>
+                            <td><a href="/doc/web/logs/client_get_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="/doc/web/logs/server_get_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td class="text-left">
+                                <p>Procura usuário por id.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CREATE</td>
+                            <td><a href="/doc/web/logs/client_create.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="/doc/web/logs/server_create.txt" target="_blank" class="card-link">log</a></td>
+                            <td class="text-left">
+                                <p>Cria um novo usuário.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>UPDATE_BY_ID</td>
+                            <td><a href="/doc/web/logs/client_update_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="/doc/web/logs/server_update_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td class="text-left">
+                                <p>Atualiza um usuário por id.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>DELETE_ALL</td>
+                            <td><a href="/doc/web/logs/client_delete_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="/doc/web/logs/server_delete_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td class="text-left">
+                                <p>Deleta todos os usuários.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>DELETE_BY_ID</td>
+                            <td><a href="/doc/web/logs/client_delete_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="/doc/web/logs/server_delete_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td class="text-left">
+                                <p>Delete usuário por id.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FINISH</td>
+                            <td><a href="/doc/web/logs/client_finish.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="/doc/web/logs/server_finish.txt" target="_blank" class="card-link">log</a></td>
+                            <td class="text-left">
+                                <p>Encerra o programa.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+			</div>
+			<br>
+		</section>
+		<hr>
+	</main>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+        // Apply syntax highlighting to the code block
+        Prism.highlightAll();
+      </script>
+  </body>
+</html>

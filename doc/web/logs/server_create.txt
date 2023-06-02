@@ -1,0 +1,27 @@
+2023-06-02 15:22:43,692 - Server - INFO - Gerando dados no servidor!
+2023-06-02 15:22:43,692 - Server - INFO - Dados gerados com sucesso
+2023-06-02 15:22:43,692 - Server - INFO - Configurando o parser de configuração!
+2023-06-02 15:22:43,693 - Server - INFO - Terminado a configuração do parser do servidor!
+2023-06-02 15:22:43,693 - Server - INFO - Criando o sll_context
+2023-06-02 15:22:43,695 - Server - INFO - Lendo o certificado confiável
+2023-06-02 15:22:43,696 - Server - INFO - Iniciando servidor!
+2023-06-02 15:22:43,697 - Server - INFO - Servidor iniciado: 127.0.0.1:5002
+2023-06-02 15:22:46,363 - Server - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:22:46,363 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:22:53,311 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:22:53,311 - Server - INFO - Mensagem recebida de ('127.0.0.1', 40004) -> Criar um novo dado!
+2023-06-02 15:22:53,311 - Server - INFO - Enviando mensagem requisitando ao cliente o nome do novo usuário!
+2023-06-02 15:22:57,978 - Server - INFO - Nome do novo usuário recebido: 'Teste'
+2023-06-02 15:22:57,978 - Server - INFO - Usuario inserido no banco com sucesso!
+2023-06-02 15:22:57,978 - Server - INFO - Enviando mensagem de confirmação para o cliente!
+2023-06-02 15:22:57,978 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:23:01,887 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:23:01,887 - Server - INFO - Mensagem recebida de ('127.0.0.1', 40004) -> Consultar dado por id!
+2023-06-02 15:23:01,887 - Server - INFO - Enviando mensagem requisitando um id ao cliente!
+2023-06-02 15:23:04,926 - Server - INFO - Recebendo do cliente o novo id: '31
+2023-06-02 15:23:04,926 - Server - INFO - Procurando elemento no banco de dados
+2023-06-02 15:23:04,927 - Server - INFO - Enviando dado encontrado no banco de dados
+2023-06-02 15:23:04,927 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:23:06,775 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:23:06,775 - Server - INFO - Mensagem recebida de ('127.0.0.1', 40004) -> Fechando Conexão!
+2023-06-02 15:23:06,775 - Server - INFO - Finalizando comunicação com o cliente

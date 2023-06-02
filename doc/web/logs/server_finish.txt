@@ -1,0 +1,11 @@
+2023-06-02 14:55:02,649 - Server - INFO - Gerando dados no servidor!
+2023-06-02 14:55:02,649 - Server - INFO - Dados gerados com sucesso
+2023-06-02 14:55:02,649 - Server - INFO - Configurando o parser de configuração!
+2023-06-02 14:55:02,649 - Server - INFO - Terminado a configuração do parser do servidor!
+2023-06-02 14:55:02,653 - Server - INFO - Iniciando servidor!
+2023-06-02 14:55:02,653 - Server - INFO - Servidor iniciado: 127.0.0.1:5002
+2023-06-02 14:55:04,039 - Server - INFO - Conexão estabelecida com sucesso!
+2023-06-02 14:55:04,039 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 14:55:06,527 - Server - INFO - Respondendo o cliente!
+2023-06-02 14:55:06,527 - Server - INFO - Mensagem recebida de ('127.0.0.1', 50858) -> Fechando Conexão!
+2023-06-02 14:55:06,527 - Server - INFO - Finalizando comunicação com o cliente

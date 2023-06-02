@@ -1,0 +1,28 @@
+2023-06-02 15:34:28,426 - Server - INFO - Gerando dados no servidor!
+2023-06-02 15:34:28,426 - Server - INFO - Dados gerados com sucesso
+2023-06-02 15:34:28,426 - Server - INFO - Configurando o parser de configuração!
+2023-06-02 15:34:28,426 - Server - INFO - Terminado a configuração do parser do servidor!
+2023-06-02 15:34:28,426 - Server - INFO - Criando o sll_context
+2023-06-02 15:34:28,430 - Server - INFO - Lendo o certificado confiável
+2023-06-02 15:34:28,432 - Server - INFO - Iniciando servidor!
+2023-06-02 15:34:28,432 - Server - INFO - Servidor iniciado: 127.0.0.1:5002
+2023-06-02 15:34:28,815 - Server - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:34:28,815 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:34:29,911 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:34:29,911 - Server - INFO - Mensagem recebida de ('127.0.0.1', 51348) -> Consultar todos os dados!
+2023-06-02 15:34:29,911 - Server - INFO - Lendo usuarios do Banco de Dados
+2023-06-02 15:34:29,911 - Server - INFO - Enviando esses usuários para o cliente!
+2023-06-02 15:34:29,911 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:34:30,847 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:34:30,847 - Server - INFO - Mensagem recebida de ('127.0.0.1', 51348) -> Deletar todos os dados!
+2023-06-02 15:34:30,848 - Server - INFO - Envia mensagem de confirmação para o cliente!
+2023-06-02 15:34:31,382 - Server - INFO - Todos os dados foram deletados com sucesso!
+2023-06-02 15:34:31,386 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:34:34,799 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:34:34,799 - Server - INFO - Mensagem recebida de ('127.0.0.1', 51348) -> Consultar todos os dados!
+2023-06-02 15:34:34,799 - Server - INFO - Lendo usuarios do Banco de Dados
+2023-06-02 15:34:34,799 - Server - INFO - Enviando esses usuários para o cliente!
+2023-06-02 15:34:34,799 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:34:35,687 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:34:35,687 - Server - INFO - Mensagem recebida de ('127.0.0.1', 51348) -> Fechando Conexão!
+2023-06-02 15:34:35,687 - Server - INFO - Finalizando comunicação com o cliente

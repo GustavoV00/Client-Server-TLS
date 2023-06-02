@@ -36,10 +36,10 @@ class ConfigParser(object):
         """
 
         try:
-            docker_config = config[section]
+            config_file = config[section]
         except Exception as err:
             print(f"Erro to find section! {err}")
-            docker_config = False
+            config_file = False
             raise Error(f"Error to find section! {err}")
 
-        return docker_config
+        return config_file

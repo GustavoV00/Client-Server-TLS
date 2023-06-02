@@ -1,0 +1,58 @@
+2023-06-02 15:22:46,353 - Client - INFO - Criando ssl_context
+2023-06-02 15:22:46,355 - Client - INFO - Lendo o certificado confiável
+2023-06-02 15:22:46,356 - Client - INFO - Criando a socket_connection
+2023-06-02 15:22:46,363 - Client - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:22:46,364 - Client - INFO - Iniciando a comunicação com o servidor
+2023-06-02 15:22:46,365 - Client - INFO - Imprimindo opções disponíveis!
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 3
+2023-06-02 15:22:53,310 - Client - INFO - Enviando mensagem para o servidor: Criar!
+2023-06-02 15:22:53,310 - Client - INFO - Enviando mensagem para 'Criar um novo dado'!
+2023-06-02 15:22:53,310 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:22:53,311 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:22:53,311 - Client - INFO - Resposta recebida do servidor: 'Digite o nome do novo usuario'
+Digite o novo usuario: Teste
+2023-06-02 15:22:57,978 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:22:57,978 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:22:57,978 - Client - INFO - Resposta recebida do servidor: 'Usuario 'Teste' criado com sucesso'
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 2
+2023-06-02 15:23:01,886 - Client - INFO - Enviando mensagem para o servidor: Consultar por id!
+2023-06-02 15:23:01,887 - Client - INFO - Enviando mensagem para 'Consultar dado por id'!
+2023-06-02 15:23:01,887 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:23:01,887 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:23:01,887 - Client - INFO - Resposta recebida do servidor: 'Digite o id que deseja!'
+Digite o id: 31
+2023-06-02 15:23:04,926 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:23:04,926 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:23:04,927 - Client - INFO - Resposta recebida do servidor: 'Teste'
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 0
+2023-06-02 15:23:06,774 - Client - INFO - Enviando mensagem para o servidor: Sair!
+2023-06-02 15:23:06,774 - Client - INFO - Finalizando a comunicação com o servidor!
+2023-06-02 15:23:06,774 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:23:06,775 - Client - INFO - Client Finalizado!

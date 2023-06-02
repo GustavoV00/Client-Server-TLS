@@ -1,0 +1,20 @@
+2023-06-02 15:22:03,388 - Server - INFO - Gerando dados no servidor!
+2023-06-02 15:22:03,388 - Server - INFO - Dados gerados com sucesso
+2023-06-02 15:22:03,388 - Server - INFO - Configurando o parser de configuração!
+2023-06-02 15:22:03,389 - Server - INFO - Terminado a configuração do parser do servidor!
+2023-06-02 15:22:03,389 - Server - INFO - Criando o sll_context
+2023-06-02 15:22:03,391 - Server - INFO - Lendo o certificado confiável
+2023-06-02 15:22:03,392 - Server - INFO - Iniciando servidor!
+2023-06-02 15:22:03,392 - Server - INFO - Servidor iniciado: 127.0.0.1:5002
+2023-06-02 15:22:04,315 - Server - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:22:04,316 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:22:07,991 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:22:07,991 - Server - INFO - Mensagem recebida de ('127.0.0.1', 38074) -> Consultar dado por id!
+2023-06-02 15:22:07,991 - Server - INFO - Enviando mensagem requisitando um id ao cliente!
+2023-06-02 15:22:10,598 - Server - INFO - Recebendo do cliente o novo id: '1
+2023-06-02 15:22:10,599 - Server - INFO - Procurando elemento no banco de dados
+2023-06-02 15:22:10,599 - Server - INFO - Enviando dado encontrado no banco de dados
+2023-06-02 15:22:10,599 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:22:12,302 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:22:12,303 - Server - INFO - Mensagem recebida de ('127.0.0.1', 38074) -> Fechando Conexão!
+2023-06-02 15:22:12,303 - Server - INFO - Finalizando comunicação com o cliente

@@ -1,0 +1,18 @@
+2023-06-02 15:21:19,590 - Server - INFO - Gerando dados no servidor!
+2023-06-02 15:21:19,591 - Server - INFO - Dados gerados com sucesso
+2023-06-02 15:21:19,591 - Server - INFO - Configurando o parser de configuração!
+2023-06-02 15:21:19,592 - Server - INFO - Terminado a configuração do parser do servidor!
+2023-06-02 15:21:19,592 - Server - INFO - Criando o sll_context
+2023-06-02 15:21:19,594 - Server - INFO - Lendo o certificado confiável
+2023-06-02 15:21:19,595 - Server - INFO - Iniciando servidor!
+2023-06-02 15:21:19,595 - Server - INFO - Servidor iniciado: 127.0.0.1:5002
+2023-06-02 15:21:21,394 - Server - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:21:21,394 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:21:22,367 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:21:22,367 - Server - INFO - Mensagem recebida de ('127.0.0.1', 49730) -> Consultar todos os dados!
+2023-06-02 15:21:22,367 - Server - INFO - Lendo usuarios do Banco de Dados
+2023-06-02 15:21:22,367 - Server - INFO - Enviando esses usuários para o cliente!
+2023-06-02 15:21:22,367 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:21:22,878 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:21:22,879 - Server - INFO - Mensagem recebida de ('127.0.0.1', 49730) -> Fechando Conexão!
+2023-06-02 15:21:22,879 - Server - INFO - Finalizando comunicação com o cliente

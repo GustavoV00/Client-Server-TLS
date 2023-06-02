@@ -1,0 +1,27 @@
+2023-06-02 15:23:54,021 - Server - INFO - Gerando dados no servidor!
+2023-06-02 15:23:54,022 - Server - INFO - Dados gerados com sucesso
+2023-06-02 15:23:54,022 - Server - INFO - Configurando o parser de configuração!
+2023-06-02 15:23:54,022 - Server - INFO - Terminado a configuração do parser do servidor!
+2023-06-02 15:23:54,022 - Server - INFO - Criando o sll_context
+2023-06-02 15:23:54,028 - Server - INFO - Lendo o certificado confiável
+2023-06-02 15:23:54,030 - Server - INFO - Iniciando servidor!
+2023-06-02 15:23:54,031 - Server - INFO - Servidor iniciado: 127.0.0.1:5002
+2023-06-02 15:23:55,377 - Server - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:23:55,377 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:24:02,031 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:24:02,031 - Server - INFO - Mensagem recebida de ('127.0.0.1', 44076) -> Atualizar um dado por id!
+2023-06-02 15:24:02,031 - Server - INFO - Enviando mensagem requisitando ao cliente o id do dado que deseja atualizar!
+2023-06-02 15:24:05,167 - Server - INFO - Recebendo do cliente o novo id: '1
+2023-06-02 15:24:05,167 - Server - INFO - Procurando elemento no banco de dados
+2023-06-02 15:24:05,167 - Server - INFO - Enviando mensagem requisitando o nome desse novo dado!
+2023-06-02 15:24:07,178 - Server - INFO - Recebendo o novo nome: 'Teste' do id: '1
+2023-06-02 15:24:07,178 - Server - INFO - Dado atualizado com sucesso!
+2023-06-02 15:24:07,178 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:24:12,391 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:24:12,391 - Server - INFO - Mensagem recebida de ('127.0.0.1', 44076) -> Consultar todos os dados!
+2023-06-02 15:24:12,391 - Server - INFO - Lendo usuarios do Banco de Dados
+2023-06-02 15:24:12,391 - Server - INFO - Enviando esses usuários para o cliente!
+2023-06-02 15:24:12,391 - Server - INFO - Recebendo opção do cliente!
+2023-06-02 15:24:13,071 - Server - INFO - Respondendo o cliente!
+2023-06-02 15:24:13,071 - Server - INFO - Mensagem recebida de ('127.0.0.1', 44076) -> Fechando Conexão!
+2023-06-02 15:24:13,071 - Server - INFO - Finalizando comunicação com o cliente

@@ -1,0 +1,73 @@
+2023-06-02 15:35:14,265 - Client - INFO - Criando ssl_context
+2023-06-02 15:35:14,267 - Client - INFO - Lendo o certificado confiável
+2023-06-02 15:35:14,269 - Client - INFO - Criando a socket_connection
+2023-06-02 15:35:14,275 - Client - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:35:14,276 - Client - INFO - Iniciando a comunicação com o servidor
+2023-06-02 15:35:14,276 - Client - INFO - Imprimindo opções disponíveis!
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 1
+2023-06-02 15:35:20,742 - Client - INFO - Enviando mensagem para o servidor: Consultar!
+2023-06-02 15:35:20,742 - Client - INFO - Enviando mensagem para 'Consultar todos os dados'!
+2023-06-02 15:35:20,742 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:35:20,742 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:35:20,743 - Client - INFO - Resposta recebida do servidor: {"1": "usuario142", "2": "usuario353", "3": "usuario707", "4": "usuario879", "5": "usuario383", "6": "usuario954", "7": "usuario745", "8": "usuario964", "9": "usuario869", "10": "usuario765", "11": "usuario83", "12": "usuario381", "13": "usuario136", "14": "usuario723", "15": "usuario740", "16": "usuario324", "17": "usuario500", "18": "usuario217", "19": "usuario146", "20": "usuario498", "21": "usuario992", "22": "usuario652", "23": "usuario481", "24": "usuario341", "25": "usuario968", "26": "usuario927", "27": "usuario119", "28": "usuario147", "29": "usuario843", "30": "usuario547"}
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 6
+2023-06-02 15:35:22,399 - Client - INFO - Enviando mensagem para o servidor: Deletar por id
+2023-06-02 15:35:22,399 - Client - INFO - Enviando mensagem para 'Deletar dado por id'!
+2023-06-02 15:35:22,402 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:35:22,402 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:35:22,402 - Client - INFO - Resposta recebida do servidor: 'Digite o id do dado que deseja deletar'
+Digite o id: 1
+2023-06-02 15:35:28,272 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:35:28,272 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:35:28,272 - Client - INFO - Resposta recebida do servidor: 1
+Deseja realmente deletar o dado? (s/n): s
+2023-06-02 15:35:31,286 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:35:31,287 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:35:31,287 - Client - INFO - Resposta recebida do servidor: 'Dado deletado com sucesso!'
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 1
+2023-06-02 15:35:33,182 - Client - INFO - Enviando mensagem para o servidor: Consultar!
+2023-06-02 15:35:33,183 - Client - INFO - Enviando mensagem para 'Consultar todos os dados'!
+2023-06-02 15:35:33,183 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:35:33,183 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:35:33,183 - Client - INFO - Resposta recebida do servidor: {"2": "usuario353", "3": "usuario707", "4": "usuario879", "5": "usuario383", "6": "usuario954", "7": "usuario745", "8": "usuario964", "9": "usuario869", "10": "usuario765", "11": "usuario83", "12": "usuario381", "13": "usuario136", "14": "usuario723", "15": "usuario740", "16": "usuario324", "17": "usuario500", "18": "usuario217", "19": "usuario146", "20": "usuario498", "21": "usuario992", "22": "usuario652", "23": "usuario481", "24": "usuario341", "25": "usuario968", "26": "usuario927", "27": "usuario119", "28": "usuario147", "29": "usuario843", "30": "usuario547"}
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 0
+2023-06-02 15:35:34,223 - Client - INFO - Enviando mensagem para o servidor: Sair!
+2023-06-02 15:35:34,223 - Client - INFO - Finalizando a comunicação com o servidor!
+2023-06-02 15:35:34,223 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:35:34,223 - Client - INFO - Client Finalizado!

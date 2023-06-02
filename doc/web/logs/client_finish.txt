@@ -1,0 +1,15 @@
+2023-06-02 14:55:04,039 - Client - INFO - Conexão estabelecida com sucesso!
+2023-06-02 14:55:04,039 - Client - INFO - Imprimindo opções disponíveis!
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 2023-06-02 14:55:06,526 - Client - INFO - Enviando mensagem para o servidor: Sair!
+2023-06-02 14:55:06,526 - Client - INFO - Finalizando a comunicação com o servidor!
+2023-06-02 14:55:06,526 - Client - INFO - Encoding a mensagem!
+2023-06-02 14:55:06,527 - Client - INFO - Client Finalizado!

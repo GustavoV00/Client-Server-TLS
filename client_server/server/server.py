@@ -23,8 +23,10 @@ class Server(object):
         self.connection = None
 
     def create_sll_context(self, parser):
+        self.logger.info("Criando o sll_context")
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         ssl_context.verify_mode = ssl.CERT_REQUIRED
+        self.logger.info("Lendo o certificado confiável")
         ssl_context.load_verify_locations(parser["client_cert"]) # Certicado confiavel pelo servidor
         ssl_context.load_cert_chain(certfile=parser["cert"], keyfile=parser["key"])
 

@@ -1,0 +1,35 @@
+2023-06-02 15:21:21,384 - Client - INFO - Criando ssl_context
+2023-06-02 15:21:21,386 - Client - INFO - Lendo o certificado confiável
+2023-06-02 15:21:21,387 - Client - INFO - Criando a socket_connection
+2023-06-02 15:21:21,394 - Client - INFO - Conexão estabelecida com sucesso!
+2023-06-02 15:21:21,394 - Client - INFO - Iniciando a comunicação com o servidor
+2023-06-02 15:21:21,394 - Client - INFO - Imprimindo opções disponíveis!
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 1
+2023-06-02 15:21:22,366 - Client - INFO - Enviando mensagem para o servidor: Consultar!
+2023-06-02 15:21:22,366 - Client - INFO - Enviando mensagem para 'Consultar todos os dados'!
+2023-06-02 15:21:22,366 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:21:22,366 - Client - INFO - Recebendo mensagem do servidor!
+2023-06-02 15:21:22,367 - Client - INFO - Resposta recebida do servidor: {"1": "usuario341", "2": "usuario870", "3": "usuario790", "4": "usuario830", "5": "usuario383", "6": "usuario955", "7": "usuario297", "8": "usuario764", "9": "usuario310", "10": "usuario24", "11": "usuario67", "12": "usuario871", "13": "usuario121", "14": "usuario276", "15": "usuario956", "16": "usuario153", "17": "usuario890", "18": "usuario376", "19": "usuario325", "20": "usuario357", "21": "usuario287", "22": "usuario753", "23": "usuario619", "24": "usuario821", "25": "usuario577", "26": "usuario335", "27": "usuario556", "28": "usuario543", "29": "usuario992", "30": "usuario233"}
+---------OPÇÕES---------
+0 - Sair
+1 - Consultar
+2 - Consultar por id
+3 - Criar
+4 - Atualizar por id
+5 - Deletar todos
+6 - Deletar por id
+-----------------------
+Digite a opção que deseja(apenas o número): 0
+2023-06-02 15:21:22,878 - Client - INFO - Enviando mensagem para o servidor: Sair!
+2023-06-02 15:21:22,878 - Client - INFO - Finalizando a comunicação com o servidor!
+2023-06-02 15:21:22,878 - Client - INFO - Encoding a mensagem!
+2023-06-02 15:21:22,878 - Client - INFO - Client Finalizado!

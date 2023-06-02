@@ -29,13 +29,17 @@ class Client(object):
         self.client_service = client_service.ClientService(self.logger, self.connection, self.commands.SIZE.value)
 
     def create_sll_context(self, parser):
+        self.logger.info("Criando ssl_context")
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.verify_mode = ssl.CERT_REQUIRED
+
+        self.logger.info("Lendo o certificado confiável")
         context.load_verify_locations(parser["server_cert"]) # Passa o certificado do servidor como confiável
         context.load_cert_chain(parser["cert"], parser["key"])
         return context
 
     def create_socket_connection(self, parser):
+        self.logger.info("Criando a socket_connection")
         socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         # SSL handshake
@@ -44,6 +48,7 @@ class Client(object):
         return secure_client_socket
 
     def start_communication_with_server(self):
+        self.logger.info("Iniciando a comunicação com o servidor")
         sair = False
         option = ""
         while not sair:
