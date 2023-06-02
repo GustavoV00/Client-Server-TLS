@@ -95,7 +95,5 @@ class Client(object):
             self.client_service.finish(str(option))
 
     def close_communication(self):
-        # self.logger.info(f"Resposta recebida do servidor: {resposta}")
-
         self.connection.close()
         self.logger.info("Client Finalizado!")

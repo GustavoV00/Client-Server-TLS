@@ -27,6 +27,8 @@ class ClientService(object):
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
 
         data_id = input("Digite o id: ")
+        
+        # Testa o input até receber um id que seja um número válido.
         while data_id.isdigit() == False:
             print("Apenas números são permitidos!")
             data_id = input("Digite o id: ")
@@ -58,6 +60,7 @@ class ClientService(object):
 
         user = input("Digite o id: ")
 
+        # Testa o input até receber um id de usuário que seja um número válido.
         while user.isdigit() == False:
             print("Apenas números são permitidos!")
             user = input("Digite o id: ")
@@ -77,8 +80,11 @@ class ClientService(object):
         self.logger.info("Enviando mensagem para 'Deletar todos os dados'!")
         utils.send_message(option, self.logger, self.connection)
         resposta = utils.recv_message(self.logger, self.connection, self.size)
+
         self.logger.info(f"Resposta recebida do servidor: {resposta}")
         confirm = input("Deseja realmente deletar todos os dados? (s/n): ")
+        
+        # Confirmação para excluir todos os dados
         while confirm != "s" and confirm != "n":
             print("Opção inválida!")
             confirm = input("Deseja realmente deletar todos os dados? (s/n): ")
@@ -96,6 +102,7 @@ class ClientService(object):
 
         user = input("Digite o id: ")
 
+        # Verifica se um id válido
         while user.isdigit() == False:
             print("Apenas números são permitidos!")
             user = input("Digite o id: ")
