@@ -136,11 +136,11 @@
                 <p>
                     Para demonstrarmos o sigilo, será utilizado 3 vídeos rápidos de demonstração.
                     <ul>
-                        <li><b>Sigilo:</b> Demonstrando a transmissão dos dados criptografados e original através do wireshark. <a href="/doc/web/static/sigilo.mp4">Video</a></li>
-                        <li><b>Autenticidade:</b> Um intrusor tentou se passar pelo cliente original e tentou realizar a comunicação com o servidor. Porém, como é uma comunicação segura, a confirmação de autenticidade do "Cliente Intrusor" gera um erro no lado do cliente, falando que é um certificado não confiável. Testamos um servidor intrusor e o resultado foi que o cliente não se conecta pois ele detecta o certificado inválido do servidor intrusor. <a href="/doc/web/static/autenticidade.mp4">Video</a></li>
+                        <li><b>Sigilo:</b> Demonstrando a transmissão dos dados criptografados e original através do wireshark. <a href="static/sigilo.mp4">Video</a></li>
+                        <li><b>Autenticidade:</b> Um intrusor tentou se passar pelo cliente original e tentou realizar a comunicação com o servidor. Porém, como é uma comunicação segura, a confirmação de autenticidade do "Cliente Intrusor" gera um erro no lado do cliente, falando que é um certificado não confiável. Testamos um servidor intrusor e o resultado foi que o cliente não se conecta pois ele detecta o certificado inválido do servidor intrusor. <a href="static/autenticidade.mp4">Video</a></li>
                         <li><b>Integridade:</b> Trocamos alguns bits de um pacote de rede capturado no wireshark, como o wireshark tem acesso as chaves públicas e privadas
                             do cliente e do servidor ele consegue descriptografar o tráfego de rede, então após trocarmos os bits mostramos que o wireshark não consegue 
-                            mais descriptografar assim como o nosso sistema cliente servidor. <a href="/doc/web/static/integridade.mp4">Video</a></li>
+                            mais descriptografar assim como o nosso sistema cliente servidor. <a href="static/integridade.mp4">Video</a></li>
                     </ul>
                 </p>
 			</div>
@@ -196,79 +196,79 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="/doc/web/codigos/main.py.txt" class="card-link">main.py</a></td>
+                            <td><a href="codigos/main.py.txt" class="card-link">main.py</a></td>
                             <td>Responsável por iniciar o projeto. Tanto para o cliente quanto para o servidor.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/client_server/client/client.py.txt" class="card-link">client.py</a></td>
+                            <td><a href="codigos/client_server/client/client.py.txt" class="card-link">client.py</a></td>
                             <td>Responsável pela criação do socket,ssl e faz o gerenciamento do crud do lado do cliente.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/client_server/client/client_service.py.txt" class="card-link">client_service.py</a></td>
+                            <td><a href="codigos/client_server/client/client_service.py.txt" class="card-link">client_service.py</a></td>
                             <td>Está a implementação completa do crud (chama hash_table.py) do lado do cliente.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/client_server/server/server.py.txt" class="card-link">server.c</a></td>
+                            <td><a href="codigos/client_server/server/server.py.txt" class="card-link">server.c</a></td>
                             <td>Responsável pela criação do socket,ssl e faz o gerenciamento do crud do lado do server.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/client_server/server/server_service.py.txt" class="card-link">server_service.py</a></td>
+                            <td><a href="codigos/client_server/server/server_service.py.txt" class="card-link">server_service.py</a></td>
                             <td>Está a implementação completa do crud (chama hash_table.py) do lado do servidor.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/utils/commands.py.txt" class="card-link">commands.py</a></td>
+                            <td><a href="codigos/utils/commands.py.txt" class="card-link">commands.py</a></td>
                             <td>É uma classe enum utilizada tanto pelo servidor quanto pelo cliente para indicar os commandos possíveis.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/utils/hash_table.py.txt" class="card-link">hash_table.py</a></td>
+                            <td><a href="codigos/utils/hash_table.py.txt" class="card-link">hash_table.py</a></td>
                             <td>É a classe que faz as operações do crud, inserir, remover, atualizar e criar. É nessa classe que os dados são guardados, através de um dicionário.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/utils/log.py.txt" class="card-link">log.py</a></td>
+                            <td><a href="codigos/utils/log.py.txt" class="card-link">log.py</a></td>
                             <td>É uma classe de log, que faz tanto o log para o cliente quanto para o servidor.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/utils/parser.py.txt" class="card-link">parser.py</a></td>
+                            <td><a href="codigos/utils/parser.py.txt" class="card-link">parser.py</a></td>
                             <td>Faz o parser do arquivo de configuração config.ini que o cliente e o servidor utilizam</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/utils/start_config.py.txt" class="card-link">start_config.py</a></td>
+                            <td><a href="codigos/utils/start_config.py.txt" class="card-link">start_config.py</a></td>
                             <td>Classe utilizada pelo parser.py, para poder ler os arquivos do config.ini</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/utils/utils.py.txt" class="card-link">utils.py</a></td>
+                            <td><a href="codigos/utils/utils.py.txt" class="card-link">utils.py</a></td>
                             <td>Algumas funções de utilidade, como imprimir algumas coisas, fazer parser de outras.</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/codigos/config.ini.txt" class="card-link">config.ini</a></td>
+                            <td><a href="codigos/config.ini.txt" class="card-link">config.ini</a></td>
                             <td>Arquivo de configuração para o cliente, servidor e intrusor</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/cert/client/certificate.crt.txt" class="card-link">client/certificate.crt</a></td>
+                            <td><a href="cert/client/certificate.crt.txt" class="card-link">client/certificate.crt</a></td>
                             <td>Certificado do client</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/cert/client/certificate.key.txt" class="card-link">client/certificate.key</a></td>
+                            <td><a href="cert/client/certificate.key.txt" class="card-link">client/certificate.key</a></td>
                             <td>Key do client</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/cert/server/certificate.crt.txt" class="card-link">server/certificate.crt</a></td>
+                            <td><a href="cert/server/certificate.crt.txt" class="card-link">server/certificate.crt</a></td>
                             <td>Certificado do servidor</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/cert/server/certificate.key.txt" class="card-link">server/certificate.key</a></td>
+                            <td><a href="cert/server/certificate.key.txt" class="card-link">server/certificate.key</a></td>
                             <td>Key do servidor</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/cert/intruder/intruder.crt.txt" class="card-link">cert/intruder/certificate.crt</a></td>
+                            <td><a href="cert/intruder/intruder.crt.txt" class="card-link">cert/intruder/certificate.crt</a></td>
                             <td>Certificado do intruder</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/cert/intruder/intruder.key.txt" class="card-link">cert/intruder/certificate.key</a></td>
+                            <td><a href="cert/intruder/intruder.key.txt" class="card-link">cert/intruder/certificate.key</a></td>
                             <td>Key do intruder</td>
                         </tr>
                         <tr>
-                            <td><a href="/doc/web/cert/localhost.conf.txt" class="card-link">cert/localhost.conf</a></td>
+                            <td><a href="cert/localhost.conf.txt" class="card-link">cert/localhost.conf</a></td>
                             <td>Configurações do certificado</td>
                         </tr>
                     </tbody>
@@ -288,56 +288,56 @@
                     <tbody>
                         <tr>
                             <td>GET_ALL</td>
-                            <td><a href="/doc/web/logs/client_get_all.txt" target="_blank" class="card-link">log</a></td>
-                            <td><a href="/doc/web/logs/server_get_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/client_get_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/server_get_all.txt" target="_blank" class="card-link">log</a></td>
                             <td class="text-left">
                                 <p>Foi realizado uma consulta de todos os dados.</p>
                             </td>
                         </tr>
                         <tr>
                             <td>GET_BY_ID</td>
-                            <td><a href="/doc/web/logs/client_get_by_id.txt" target="_blank" class="card-link">log</a></td>
-                            <td><a href="/doc/web/logs/server_get_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/client_get_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/server_get_by_id.txt" target="_blank" class="card-link">log</a></td>
                             <td class="text-left">
                                 <p>Procura usuário por id.</p>
                             </td>
                         </tr>
                         <tr>
                             <td>CREATE</td>
-                            <td><a href="/doc/web/logs/client_create.txt" target="_blank" class="card-link">log</a></td>
-                            <td><a href="/doc/web/logs/server_create.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/client_create.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/server_create.txt" target="_blank" class="card-link">log</a></td>
                             <td class="text-left">
                                 <p>Cria um novo usuário.</p>
                             </td>
                         </tr>
                         <tr>
                             <td>UPDATE_BY_ID</td>
-                            <td><a href="/doc/web/logs/client_update_by_id.txt" target="_blank" class="card-link">log</a></td>
-                            <td><a href="/doc/web/logs/server_update_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/client_update_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/server_update_by_id.txt" target="_blank" class="card-link">log</a></td>
                             <td class="text-left">
                                 <p>Atualiza um usuário por id.</p>
                             </td>
                         </tr>
                         <tr>
                             <td>DELETE_ALL</td>
-                            <td><a href="/doc/web/logs/client_delete_all.txt" target="_blank" class="card-link">log</a></td>
-                            <td><a href="/doc/web/logs/server_delete_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/client_delete_all.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/server_delete_all.txt" target="_blank" class="card-link">log</a></td>
                             <td class="text-left">
                                 <p>Deleta todos os usuários.</p>
                             </td>
                         </tr>
                         <tr>
                             <td>DELETE_BY_ID</td>
-                            <td><a href="/doc/web/logs/client_delete_by_id.txt" target="_blank" class="card-link">log</a></td>
-                            <td><a href="/doc/web/logs/server_delete_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/client_delete_by_id.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/server_delete_by_id.txt" target="_blank" class="card-link">log</a></td>
                             <td class="text-left">
                                 <p>Delete usuário por id.</p>
                             </td>
                         </tr>
                         <tr>
                             <td>FINISH</td>
-                            <td><a href="/doc/web/logs/client_finish.txt" target="_blank" class="card-link">log</a></td>
-                            <td><a href="/doc/web/logs/server_finish.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/client_finish.txt" target="_blank" class="card-link">log</a></td>
+                            <td><a href="logs/server_finish.txt" target="_blank" class="card-link">log</a></td>
                             <td class="text-left">
                                 <p>Encerra o programa.</p>
                             </td>
